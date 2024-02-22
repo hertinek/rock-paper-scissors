@@ -6,8 +6,23 @@
     <title>Document</title>
 </head>
 <body>
+    <p>Hello World!</p>
     <script>
+        let randNum = Math.floor( Math.random() * 3 );
+        function getComputerChoice() {
+            if(randNum === 0) {
+                return "Rock";
+            } else if(randNum === 1) {
+                return "Paper";
+            } else if(randNum === 2) {
+                return "Scissors";
+            }
+        }
+        getComputerChoice();
         
+        let computerChoice = getComputerChoice();
+        console.log("The computer wisely choose: " +computerChoice);
+
     </script>
 
 
