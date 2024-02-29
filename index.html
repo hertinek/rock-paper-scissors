@@ -8,8 +8,11 @@
 <body>
     <p>Hello World!</p>
     <script>
-        let randNum = Math.floor( Math.random() * 3 );
-        function getComputerChoice() {
+
+        // Computer gives random integer between 0 and 2 included.
+        // To each is attached a choice between rock, paper, and scissors.
+        function getComputerSelection() {
+            let randNum = Math.floor( Math.random() * 3 );
             if(randNum === 0) {
                 return "Rock";
             } else if(randNum === 1) {
@@ -18,10 +21,70 @@
                 return "Scissors";
             }
         }
-        getComputerChoice();
+        // The result of the function is converted into a variable to be used later
+        let computerSelection = getComputerSelection();
         
-        let computerChoice = getComputerChoice();
-        console.log("The computer wisely choose: " +computerChoice);
+
+
+        let playerSelection; // Declares the variable before the function so that it is accessible outside of it
+        function getPlayerSelection() {
+            while (true) {
+                playerSelection = prompt("What weapon will you choose?", "Rock, Paper, or Scissors?");
+                playerSelection = playerSelection.toLowerCase();
+                playerSelection = playerSelection[0].toUpperCase() + playerSelection.substring(1); // Makes the input case-insensitive and renders the output with the first letter only capitalized
+                if (playerSelection === "Rock" || playerSelection === "Paper" || playerSelection === "Scissors") {
+                    alert("You choose " + playerSelection + "!");
+                    return playerSelection;
+                    break;
+                } else {
+                    if (confirm("You're not playing fair, buddy! You MUST choose one of the three weapons! Do you still want to play?") == false) {
+                        playerSelection = undefined; // so that the wrong answer doesn't get stored as a string
+                        break; //breaks the loop and ends the game
+                    } ;
+                }
+            }
+        }
+        getPlayerSelection();
+
+        console.log("You choose: \"" + playerSelection + "\", and the computer chooses: \"" + computerSelection + "\".");
+
+        function playRound() {
+            let rockValue = 3;
+            let scissorsValue = 2;
+            let paperValue = 1;
+            let playerValue = playerSelection;
+            let computerValue = computerSelection;
+            if(playerSelection === "Rock") {
+                playerValue = rockValue;
+            } else if(playerSelection === "Scissors") {
+                playerValue = scissorsValue;
+            } else if(playerSelection === "Paper") {
+                playerValue = paperValue;
+            }
+            if(computerSelection === "Rock") {
+                computerValue = rockValue;
+            } else if(computerSelection === "Scissors") {
+                computerValue = scissorsValue;
+            } else if(computerSelection === "Paper") {
+                computerValue = paperValue; 
+            }
+            function evaluateResult() {
+                let result = ((playerValue - computerValue + 3) % 3);
+                if(result === 1) {
+                    return "You win!";
+                } else if(result === 2) {
+                    return "Computer wins!";
+                } else if(result === 0) {
+                    return "It's a tie!";
+                }
+            }
+            let resultMessage = evaluateResult();
+            console.log(resultMessage);
+        }
+        playRound(playerSelection, computerSelection);
+
+
+
 
     </script>
 
