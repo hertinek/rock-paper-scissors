@@ -21,69 +21,108 @@
                 return "Scissors";
             }
         }
-        // The result of the function is converted into a variable to be used later
-        let computerSelection = getComputerSelection();
         
-
-
-        let playerSelection; // Declares the variable before the function so that it is accessible outside of it
         function getPlayerSelection() {
             while (true) {
-                playerSelection = prompt("What weapon will you choose?", "Rock, Paper, or Scissors?");
+                let playerSelection = prompt("What weapon will you choose?", "Rock, Paper, or Scissors?");
                 playerSelection = playerSelection.toLowerCase();
                 playerSelection = playerSelection[0].toUpperCase() + playerSelection.substring(1); // Makes the input case-insensitive and renders the output with the first letter only capitalized
                 if (playerSelection === "Rock" || playerSelection === "Paper" || playerSelection === "Scissors") {
-                    alert("You choose " + playerSelection + "!");
+                    alert(`You choose ${playerSelection}!`);
                     return playerSelection;
                     break;
                 } else {
                     if (confirm("You're not playing fair, buddy! You MUST choose one of the three weapons! Do you still want to play?") == false) {
-                        playerSelection = undefined; // so that the wrong answer doesn't get stored as a string
+                        return null; // so that the wrong answer doesn't get stored as a string
                         break; //breaks the loop and ends the game
                     } ;
                 }
             }
         }
-        getPlayerSelection();
-
-        console.log("You choose: \"" + playerSelection + "\", and the computer chooses: \"" + computerSelection + "\".");
 
         function playRound() {
-            let rockValue = 3;
-            let scissorsValue = 2;
-            let paperValue = 1;
-            let playerValue = playerSelection;
-            let computerValue = computerSelection;
-            if(playerSelection === "Rock") {
-                playerValue = rockValue;
-            } else if(playerSelection === "Scissors") {
-                playerValue = scissorsValue;
-            } else if(playerSelection === "Paper") {
-                playerValue = paperValue;
-            }
-            if(computerSelection === "Rock") {
-                computerValue = rockValue;
-            } else if(computerSelection === "Scissors") {
-                computerValue = scissorsValue;
-            } else if(computerSelection === "Paper") {
-                computerValue = paperValue; 
-            }
-            function evaluateResult() {
-                let result = ((playerValue - computerValue + 3) % 3);
-                if(result === 1) {
-                    return "You win!";
-                } else if(result === 2) {
-                    return "Computer wins!";
-                } else if(result === 0) {
-                    return "It's a tie!";
+            const playerSelection = getPlayerSelection();
+            if (playerSelection !== null) { 
+                const computerSelection = getComputerSelection();
+                const rockValue = 3;
+                const scissorsValue = 2;
+                const paperValue = 1;
+                let playerValue = playerSelection;
+                let computerValue = computerSelection;
+                if(playerSelection === "Rock") {
+                    playerValue = rockValue;
+                } else if(playerSelection === "Scissors") {
+                    playerValue = scissorsValue;
+                } else if(playerSelection === "Paper") {
+                    playerValue = paperValue;
                 }
+                if(computerSelection === "Rock") {
+                    computerValue = rockValue;
+                } else if(computerSelection === "Scissors") {
+                    computerValue = scissorsValue;
+                } else if(computerSelection === "Paper") {
+                    computerValue = paperValue; 
+                }
+
+                function evaluateResult() {
+                    let result = ((playerValue - computerValue + 3) % 3);
+                    if(result === 1) {
+                        return "You win!";
+                    } else if(result === 2) {
+                        return "Computer wins!";
+                    } else if(result === 0) {
+                        return "It's a tie!";
+                    }
+                }
+                const resultMessage = evaluateResult();
+
+                return {
+                    resultMessage: resultMessage,
+                    computerSelection: computerSelection,
+                    playerSelection: playerSelection,
+                }
+
+
             }
-            let resultMessage = evaluateResult();
-            console.log(resultMessage);
         }
-        playRound(playerSelection, computerSelection);
 
+        function playGame() {
+            let computerWins = 0;
+            let playerWins = 0;
+            let userConfirmed = confirm("Would you like to play a game of Rock-Paper-Scissors?");
+            if(userConfirmed) {
+                while (computerWins + playerWins < 3) {
+                    const playRoundResult = playRound();
+                    const computerSelection = playRoundResult.computerSelection;
+                    const playerSelection = playRoundResult.playerSelection;
+                    const resultMessage = playRoundResult.resultMessage;
 
+                    if(resultMessage === "It's a tie!") {
+                        console.log(`Computer chose ${computerSelection}, you chose ${playerSelection}… ${resultMessage} It won't count in the results.`);
+                    } else if(resultMessage === "Computer wins!") {
+                        computerWins = computerWins + 1;
+                        console.log(`Computer chose ${computerSelection}, you chose ${playerSelection}… ${resultMessage} Don't lose hope!`);
+                    } else {
+                        playerWins = playerWins + 1;
+                        console.log(`Computer chose ${computerSelection}, you chose ${playerSelection}… ${resultMessage} What a game!`);
+                    }
+
+                }
+                function getUltimateGameResult() {
+                    let ultimateGameResult;
+                    if(playerWins > computerWins) {
+                        console.log("Congratulations! You've outsmarted the computer with the finesse of a ninja cat wearing a tuxedo – pure elegance, unmatched wit, and a sprinkle of stardust. You are the crowned ruler of this digital realm!");
+                        return ultimateGameResult = "Player is the grand winner";
+
+                    } else if(computerWins > playerWins) {
+                        console.log("Alas! The computer triumphs, leaving you in the dust of its silicon superiority. In the realm of algorithms and logic, you stand defeated, a mere mortal in the shadow of the mighty machine. Fear not, for in the binary ballet, today the computer leads, and you? Well, you've earned the title of 'Binary Bumbler'.");
+                        return ultimateGameResult = "Computer is the grand winner";
+                    }
+                }
+                getUltimateGameResult();
+            }    
+        }
+        playGame();
 
 
     </script>
