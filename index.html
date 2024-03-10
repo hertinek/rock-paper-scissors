@@ -40,6 +40,17 @@
             }
         }
 
+        function evaluateResult(playerValue, computerValue) {
+                    let result = ((playerValue - computerValue + 3) % 3);
+                    if(result === 1) {
+                        return "You win!";
+                    } else if(result === 2) {
+                        return "Computer wins!";
+                    } else if(result === 0) {
+                        return "It's a tie!";
+                    }
+                }
+
         function playRound() {
             const playerSelection = getPlayerSelection();
             if (playerSelection !== null) { 
@@ -63,18 +74,8 @@
                 } else if(computerSelection === "Paper") {
                     computerValue = paperValue; 
                 }
-
-                function evaluateResult() {
-                    let result = ((playerValue - computerValue + 3) % 3);
-                    if(result === 1) {
-                        return "You win!";
-                    } else if(result === 2) {
-                        return "Computer wins!";
-                    } else if(result === 0) {
-                        return "It's a tie!";
-                    }
-                }
-                const resultMessage = evaluateResult();
+               
+                const resultMessage = evaluateResult(playerValue, computerValue);
 
                 return {
                     resultMessage: resultMessage,
@@ -85,6 +86,17 @@
 
             }
         }
+        
+        function getUltimateGameResult(computerWins, playerWins) {
+                    if(playerWins > computerWins) {
+                        console.log("Congratulations! You've outsmarted the computer with the finesse of a ninja cat wearing a tuxedo – pure elegance, unmatched wit, and a sprinkle of stardust. You are the crowned ruler of this digital realm!");
+                        return "Player is the grand winner";
+
+                    } else if(computerWins > playerWins) {
+                        console.log("Alas! The computer triumphs, leaving you in the dust of its silicon superiority. In the realm of algorithms and logic, you stand defeated, a mere mortal in the shadow of the mighty machine. Fear not, for in the binary ballet, today the computer leads, and you? Well, you've earned the title of 'Binary Bumbler'.");
+                        return "Computer is the grand winner";
+                    }
+                }
 
         function playGame() {
             let computerWins = 0;
@@ -108,18 +120,8 @@
                     }
 
                 }
-                function getUltimateGameResult() {
-                    let ultimateGameResult;
-                    if(playerWins > computerWins) {
-                        console.log("Congratulations! You've outsmarted the computer with the finesse of a ninja cat wearing a tuxedo – pure elegance, unmatched wit, and a sprinkle of stardust. You are the crowned ruler of this digital realm!");
-                        return ultimateGameResult = "Player is the grand winner";
-
-                    } else if(computerWins > playerWins) {
-                        console.log("Alas! The computer triumphs, leaving you in the dust of its silicon superiority. In the realm of algorithms and logic, you stand defeated, a mere mortal in the shadow of the mighty machine. Fear not, for in the binary ballet, today the computer leads, and you? Well, you've earned the title of 'Binary Bumbler'.");
-                        return ultimateGameResult = "Computer is the grand winner";
-                    }
-                }
-                getUltimateGameResult();
+                
+                console.log(getUltimateGameResult(computerWins, playerWins));
             }    
         }
         playGame();
