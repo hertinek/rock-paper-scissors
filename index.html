@@ -97,35 +97,36 @@
                         return "Computer is the grand winner";
                     }
                 }
+        
+        // function playGame() {
+        //     let computerWins = 0;
+        //     let playerWins = 0;
+        //     let userConfirmed = confirm("Would you like to play a game of Rock-Paper-Scissors?");
+        //     if(userConfirmed) {
+        //         while (computerWins + playerWins < 3) {
+        //             const playRoundResult = playRound();
+        //             const computerSelection = playRoundResult.computerSelection;
+        //             const playerSelection = playRoundResult.playerSelection;
+        //             const resultMessage = playRoundResult.resultMessage;
 
-        function playGame() {
-            let computerWins = 0;
-            let playerWins = 0;
-            let userConfirmed = confirm("Would you like to play a game of Rock-Paper-Scissors?");
-            if(userConfirmed) {
-                while (computerWins + playerWins < 3) {
-                    const playRoundResult = playRound();
-                    const computerSelection = playRoundResult.computerSelection;
-                    const playerSelection = playRoundResult.playerSelection;
-                    const resultMessage = playRoundResult.resultMessage;
+        //             if(resultMessage === "It's a tie!") {
+        //                 console.log(`Computer chose ${computerSelection}, you chose ${playerSelection}… ${resultMessage} It won't count in the results.`);
+        //             } else if(resultMessage === "Computer wins!") {
+        //                 computerWins = computerWins + 1;
+        //                 console.log(`Computer chose ${computerSelection}, you chose ${playerSelection}… ${resultMessage} Don't lose hope!`);
+        //             } else {
+        //                 playerWins = playerWins + 1;
+        //                 console.log(`Computer chose ${computerSelection}, you chose ${playerSelection}… ${resultMessage} What a game!`);
+        //             }
 
-                    if(resultMessage === "It's a tie!") {
-                        console.log(`Computer chose ${computerSelection}, you chose ${playerSelection}… ${resultMessage} It won't count in the results.`);
-                    } else if(resultMessage === "Computer wins!") {
-                        computerWins = computerWins + 1;
-                        console.log(`Computer chose ${computerSelection}, you chose ${playerSelection}… ${resultMessage} Don't lose hope!`);
-                    } else {
-                        playerWins = playerWins + 1;
-                        console.log(`Computer chose ${computerSelection}, you chose ${playerSelection}… ${resultMessage} What a game!`);
-                    }
-
-                }
+        //         }
                 
-                console.log(getUltimateGameResult(computerWins, playerWins));
-            }    
-        }
-        playGame();
+        //         console.log(getUltimateGameResult(computerWins, playerWins));
+        //     }    
+        // }
+        // playGame();
 
+        
 
     </script>
 
