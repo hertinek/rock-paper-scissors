@@ -27,19 +27,13 @@
             }
         }
 
-        // function pressButton(event) {
-        //     console.log(`Player chose ${event.target.textContent.toLowerCase()}.`);
-        // }
         
         const container = document.querySelector('#container');
         let playerSelection;
 
-        container.addEventListener('click', function(event) {
-            playerSelection = event.target.textContent
+        container.addEventListener('click', event => {
+            playerSelection = event.target.textContent;
         });
-
-        
-
 
         // function getPlayerSelection() {
         //     while (true) {
@@ -59,50 +53,54 @@
         //     }
         // }
 
-        // function evaluateResult(playerValue, computerValue) {
-        //             let result = ((playerValue - computerValue + 3) % 3);
-        //             if(result === 1) {
-        //                 return "You win!";
-        //             } else if(result === 2) {
-        //                 return "Computer wins!";
-        //             } else if(result === 0) {
-        //                 return "It's a tie!";
-        //             }
-        //         }
+        function evaluateResult(playerValue, computerValue) {
+            let result = ((playerValue - computerValue + 3) % 3);
+            if(result === 1) {
+                return "You win!";
+            } else if(result === 2) {
+                return "Computer wins!";
+            } else if(result === 0) {
+                return "It's a tie!";
+            }
+        }
 
-        // function playRound() {
-        //     const playerSelection = getPlayerSelection();
-        //     if (playerSelection !== null) { 
-        //         const computerSelection = getComputerSelection();
-        //         const rockValue = 3;
-        //         const scissorsValue = 2;
-        //         const paperValue = 1;
-        //         let playerValue = playerSelection;
-        //         let computerValue = computerSelection;
-        //         if(playerSelection === "Rock") {
-        //             playerValue = rockValue;
-        //         } else if(playerSelection === "Scissors") {
-        //             playerValue = scissorsValue;
-        //         } else if(playerSelection === "Paper") {
-        //             playerValue = paperValue;
-        //         }
-        //         if(computerSelection === "Rock") {
-        //             computerValue = rockValue;
-        //         } else if(computerSelection === "Scissors") {
-        //             computerValue = scissorsValue;
-        //         } else if(computerSelection === "Paper") {
-        //             computerValue = paperValue; 
-        //         }
-               
-        //         const resultMessage = evaluateResult(playerValue, computerValue);
+        function playRound() {
+            const computerSelection = getComputerSelection();
+            const rockValue = 3;
+            const scissorsValue = 2;
+            const paperValue = 1;
+            let playerValue = playerSelection;
+            let computerValue = computerSelection;
+            if(playerSelection === "Rock") {
+                playerValue = rockValue;
+            } else if(playerSelection === "Scissors") {
+                playerValue = scissorsValue;
+            } else if(playerSelection === "Paper") {
+                playerValue = paperValue;
+            }
+            if(computerSelection === "Rock") {
+                computerValue = rockValue;
+            } else if(computerSelection === "Scissors") {
+                computerValue = scissorsValue;
+            } else if(computerSelection === "Paper") {
+                computerValue = paperValue; 
+            }
+            
+            const resultMessage = evaluateResult(playerValue, computerValue);
+            // The following console.log is to be deleted later
+            console.log({
+                resultMessage: resultMessage,
+                computerSelection: computerSelection,
+                playerSelection: playerSelection,
+            });
+            return {
+                resultMessage: resultMessage,
+                computerSelection: computerSelection,
+                playerSelection: playerSelection,
+            }
+        }
 
-        //         return {
-        //             resultMessage: resultMessage,
-        //             computerSelection: computerSelection,
-        //             playerSelection: playerSelection,
-        //         }
-        //     }
-        // }
+        container.addEventListener('click', playRound);
         
         // function getUltimateGameResult(computerWins, playerWins) {
         //             if(playerWins > computerWins) {
