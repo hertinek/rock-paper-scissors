@@ -27,79 +27,93 @@
             }
         }
 
-        function getPlayerSelection() {
-            while (true) {
-                let playerSelection = prompt("What weapon will you choose?", "Rock, Paper, or Scissors?");
-                playerSelection = playerSelection.toLowerCase();
-                playerSelection = playerSelection[0].toUpperCase() + playerSelection.substring(1); // Makes the input case-insensitive and renders the output with the first letter only capitalized
-                if (playerSelection === "Rock" || playerSelection === "Paper" || playerSelection === "Scissors") {
-                    alert(`You choose ${playerSelection}!`);
-                    return playerSelection;
-                    break;
-                } else {
-                    if (confirm("You're not playing fair, buddy! You MUST choose one of the three weapons! Do you still want to play?") == false) {
-                        return null; // so that the wrong answer doesn't get stored as a string
-                        break; //breaks the loop and ends the game
-                    } ;
-                }
-            }
-        }
-
-        function evaluateResult(playerValue, computerValue) {
-                    let result = ((playerValue - computerValue + 3) % 3);
-                    if(result === 1) {
-                        return "You win!";
-                    } else if(result === 2) {
-                        return "Computer wins!";
-                    } else if(result === 0) {
-                        return "It's a tie!";
-                    }
-                }
-
-        function playRound() {
-            const playerSelection = getPlayerSelection();
-            if (playerSelection !== null) { 
-                const computerSelection = getComputerSelection();
-                const rockValue = 3;
-                const scissorsValue = 2;
-                const paperValue = 1;
-                let playerValue = playerSelection;
-                let computerValue = computerSelection;
-                if(playerSelection === "Rock") {
-                    playerValue = rockValue;
-                } else if(playerSelection === "Scissors") {
-                    playerValue = scissorsValue;
-                } else if(playerSelection === "Paper") {
-                    playerValue = paperValue;
-                }
-                if(computerSelection === "Rock") {
-                    computerValue = rockValue;
-                } else if(computerSelection === "Scissors") {
-                    computerValue = scissorsValue;
-                } else if(computerSelection === "Paper") {
-                    computerValue = paperValue; 
-                }
-               
-                const resultMessage = evaluateResult(playerValue, computerValue);
-
-                return {
-                    resultMessage: resultMessage,
-                    computerSelection: computerSelection,
-                    playerSelection: playerSelection,
-                }
-            }
-        }
+        // function pressButton(event) {
+        //     console.log(`Player chose ${event.target.textContent.toLowerCase()}.`);
+        // }
         
-        function getUltimateGameResult(computerWins, playerWins) {
-                    if(playerWins > computerWins) {
-                        console.log("Congratulations! You've outsmarted the computer with the finesse of a ninja cat wearing a tuxedo – pure elegance, unmatched wit, and a sprinkle of stardust. You are the crowned ruler of this digital realm!");
-                        return "Player is the grand winner";
+        const container = document.querySelector('#container');
+        let playerSelection;
 
-                    } else if(computerWins > playerWins) {
-                        console.log("Alas! The computer triumphs, leaving you in the dust of its silicon superiority. In the realm of algorithms and logic, you stand defeated, a mere mortal in the shadow of the mighty machine. Fear not, for in the binary ballet, today the computer leads, and you? Well, you've earned the title of 'Binary Bumbler'.");
-                        return "Computer is the grand winner";
-                    }
-                }
+        container.addEventListener('click', function(event) {
+            playerSelection = event.target.textContent
+        });
+
+        
+
+
+        // function getPlayerSelection() {
+        //     while (true) {
+        //         let playerSelection = prompt("What weapon will you choose?", "Rock, Paper, or Scissors?");
+        //         playerSelection = playerSelection.toLowerCase();
+        //         playerSelection = playerSelection[0].toUpperCase() + playerSelection.substring(1); // Makes the input case-insensitive and renders the output with the first letter only capitalized
+        //         if (playerSelection === "Rock" || playerSelection === "Paper" || playerSelection === "Scissors") {
+        //             alert(`You choose ${playerSelection}!`);
+        //             return playerSelection;
+        //             break;
+        //         } else {
+        //             if (confirm("You're not playing fair, buddy! You MUST choose one of the three weapons! Do you still want to play?") == false) {
+        //                 return null; // so that the wrong answer doesn't get stored as a string
+        //                 break; //breaks the loop and ends the game
+        //             } ;
+        //         }
+        //     }
+        // }
+
+        // function evaluateResult(playerValue, computerValue) {
+        //             let result = ((playerValue - computerValue + 3) % 3);
+        //             if(result === 1) {
+        //                 return "You win!";
+        //             } else if(result === 2) {
+        //                 return "Computer wins!";
+        //             } else if(result === 0) {
+        //                 return "It's a tie!";
+        //             }
+        //         }
+
+        // function playRound() {
+        //     const playerSelection = getPlayerSelection();
+        //     if (playerSelection !== null) { 
+        //         const computerSelection = getComputerSelection();
+        //         const rockValue = 3;
+        //         const scissorsValue = 2;
+        //         const paperValue = 1;
+        //         let playerValue = playerSelection;
+        //         let computerValue = computerSelection;
+        //         if(playerSelection === "Rock") {
+        //             playerValue = rockValue;
+        //         } else if(playerSelection === "Scissors") {
+        //             playerValue = scissorsValue;
+        //         } else if(playerSelection === "Paper") {
+        //             playerValue = paperValue;
+        //         }
+        //         if(computerSelection === "Rock") {
+        //             computerValue = rockValue;
+        //         } else if(computerSelection === "Scissors") {
+        //             computerValue = scissorsValue;
+        //         } else if(computerSelection === "Paper") {
+        //             computerValue = paperValue; 
+        //         }
+               
+        //         const resultMessage = evaluateResult(playerValue, computerValue);
+
+        //         return {
+        //             resultMessage: resultMessage,
+        //             computerSelection: computerSelection,
+        //             playerSelection: playerSelection,
+        //         }
+        //     }
+        // }
+        
+        // function getUltimateGameResult(computerWins, playerWins) {
+        //             if(playerWins > computerWins) {
+        //                 console.log("Congratulations! You've outsmarted the computer with the finesse of a ninja cat wearing a tuxedo – pure elegance, unmatched wit, and a sprinkle of stardust. You are the crowned ruler of this digital realm!");
+        //                 return "Player is the grand winner";
+
+        //             } else if(computerWins > playerWins) {
+        //                 console.log("Alas! The computer triumphs, leaving you in the dust of its silicon superiority. In the realm of algorithms and logic, you stand defeated, a mere mortal in the shadow of the mighty machine. Fear not, for in the binary ballet, today the computer leads, and you? Well, you've earned the title of 'Binary Bumbler'.");
+        //                 return "Computer is the grand winner";
+        //             }
+        //         }
         
         // function playGame() {
         //     let computerWins = 0;
@@ -129,13 +143,6 @@
         // }
         // playGame();
         
-        const container = document.querySelector('#container');
-
-        function pressButton(event) {
-            console.log(`Player chose ${event.target.textContent.toLowerCase()}.`);
-        }
-
-        container.addEventListener('click', playRound);
 
 
     </script>
