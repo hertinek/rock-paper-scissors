@@ -6,7 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <p>Hello World! Yes.</p>
+    <div id="container">
+        <button id="rbtn">Rock</button>
+        <button id="pbtn">Paper</button>
+        <button id="sbtn">Scissors</button>
+    </div>
+
     <script>
 
         // Computer gives random integer between 0 and 2 included.
@@ -21,7 +26,7 @@
                 return "Scissors";
             }
         }
-        
+
         function getPlayerSelection() {
             while (true) {
                 let playerSelection = prompt("What weapon will you choose?", "Rock, Paper, or Scissors?");
@@ -82,8 +87,6 @@
                     computerSelection: computerSelection,
                     playerSelection: playerSelection,
                 }
-
-
             }
         }
         
@@ -125,8 +128,15 @@
         //     }    
         // }
         // playGame();
-
         
+        const container = document.querySelector('#container');
+
+        function pressButton(event) {
+            console.log(`Player chose ${event.target.textContent.toLowerCase()}.`);
+        }
+
+        container.addEventListener('click', playRound);
+
 
     </script>
 
