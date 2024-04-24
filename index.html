@@ -4,9 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style> 
+  
+        .sticky { 
+            position: fixed;
+            right: 20px;
+            top: 20px; 
+            background-color: rgb(32, 165, 20); 
+            color: white; 
+            padding: 10px; 
+        }
+
+    </style>
+
 </head>
 <body>
-    <div id="container">
+    <div class="sticky" id="container">
         <button id="rbtn">Rock</button>
         <button id="pbtn">Paper</button>
         <button id="sbtn">Scissors</button>
@@ -22,8 +36,10 @@
         let playerSelection;
 
         container.addEventListener('click', event => {
-            playerSelection = event.target.textContent;
-            playRound(playerSelection);
+            if (event.target.textContent == "Rock" || event.target.textContent == "Paper" || event.target.textContent == "Scissors") {
+                playerSelection = event.target.textContent;
+                playRound(playerSelection);
+            }
         });
 
         function getComputerSelection() {
