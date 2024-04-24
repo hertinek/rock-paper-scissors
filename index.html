@@ -12,11 +12,23 @@
         <button id="sbtn">Scissors</button>
     </div>
 
-    <script>
+    <div id="displayBox"></div>
 
+    <script>
+        
+        const container = document.querySelector('#container');
+        const displayBox = document.querySelector('#displayBox');
+
+        let playerSelection;
+
+        container.addEventListener('click', event => {
+            playerSelection = event.target.textContent;
+            playRound(playerSelection);
+        });
+
+        function getComputerSelection() {
         // Computer gives random integer between 0 and 2 included.
         // To each is attached a choice between rock, paper, and scissors.
-        function getComputerSelection() {
             let randNum = Math.floor( Math.random() * 3 );
             if(randNum === 0) {
                 return "Rock";
@@ -27,31 +39,48 @@
             }
         }
 
-        
-        const container = document.querySelector('#container');
-        let playerSelection;
+        let computerScore = 0;
+        let playerScore = 0;
 
-        container.addEventListener('click', event => {
-            playerSelection = event.target.textContent;
-        });
-
-        // function getPlayerSelection() {
-        //     while (true) {
-        //         let playerSelection = prompt("What weapon will you choose?", "Rock, Paper, or Scissors?");
-        //         playerSelection = playerSelection.toLowerCase();
-        //         playerSelection = playerSelection[0].toUpperCase() + playerSelection.substring(1); // Makes the input case-insensitive and renders the output with the first letter only capitalized
-        //         if (playerSelection === "Rock" || playerSelection === "Paper" || playerSelection === "Scissors") {
-        //             alert(`You choose ${playerSelection}!`);
-        //             return playerSelection;
-        //             break;
-        //         } else {
-        //             if (confirm("You're not playing fair, buddy! You MUST choose one of the three weapons! Do you still want to play?") == false) {
-        //                 return null; // so that the wrong answer doesn't get stored as a string
-        //                 break; //breaks the loop and ends the game
-        //             } ;
-        //         }
-        //     }
-        // }
+        function playRound() {
+            const computerSelection = getComputerSelection();
+            const rockValue = 3;
+            const scissorsValue = 2;
+            const paperValue = 1;
+            let playerValue = playerSelection;
+            let computerValue = computerSelection;
+            if (playerSelection === "Rock") {
+                playerValue = rockValue;
+            } else if (playerSelection === "Scissors") {
+                playerValue = scissorsValue;
+            } else if (playerSelection === "Paper") {
+                playerValue = paperValue;
+            }
+            if (computerSelection === "Rock") {
+                computerValue = rockValue;
+            } else if (computerSelection === "Scissors") {
+                computerValue = scissorsValue;
+            } else if (computerSelection === "Paper") {
+                computerValue = paperValue;
+            }
+            const resultMessage = evaluateResult(playerValue, computerValue);
+            displayBox.innerHTML += `You chose ${playerSelection.toLowerCase()} and the computer chose ${computerSelection.toLowerCase()}… <br> ${resultMessage} `;
+            if(resultMessage =="You win!") {
+                playerScore = playerScore + 1;
+                displayBox.innerHTML += `You get one point.<br> Computer score = ${computerScore}/5 — Player score = ${playerScore}/5.<br>~~~<br>`
+            } else if(resultMessage =="Computer wins!") {
+                computerScore = computerScore + 1;
+                displayBox.innerHTML += `The computer gets one point.<br> Computer score = ${computerScore}/5 — Player score = ${playerScore}/5.<br>~~~<br>`
+            } else if(resultMessage =="It's a tie!") {
+                displayBox.innerHTML += `No one gets any point.<br> Computer score = ${computerScore}/5 — Player score = ${playerScore}/5.<br>~~~<br>`
+            }
+            getUltimateGameResult(computerScore, playerScore);
+            return {
+                resultMessage: resultMessage,
+                computerSelection: computerSelection,
+                playerSelection: playerSelection,
+            }
+        }
 
         function evaluateResult(playerValue, computerValue) {
             let result = ((playerValue - computerValue + 3) % 3);
@@ -63,83 +92,23 @@
                 return "It's a tie!";
             }
         }
+        
+        function resetScores() {
+            playerScore = 0;
+            computerScore = 0;
+        };
 
-        function playRound() {
-            const computerSelection = getComputerSelection();
-            const rockValue = 3;
-            const scissorsValue = 2;
-            const paperValue = 1;
-            let playerValue = playerSelection;
-            let computerValue = computerSelection;
-            if(playerSelection === "Rock") {
-                playerValue = rockValue;
-            } else if(playerSelection === "Scissors") {
-                playerValue = scissorsValue;
-            } else if(playerSelection === "Paper") {
-                playerValue = paperValue;
-            }
-            if(computerSelection === "Rock") {
-                computerValue = rockValue;
-            } else if(computerSelection === "Scissors") {
-                computerValue = scissorsValue;
-            } else if(computerSelection === "Paper") {
-                computerValue = paperValue; 
-            }
-            
-            const resultMessage = evaluateResult(playerValue, computerValue);
-            // The following console.log is to be deleted later
-            console.log({
-                resultMessage: resultMessage,
-                computerSelection: computerSelection,
-                playerSelection: playerSelection,
-            });
-            return {
-                resultMessage: resultMessage,
-                computerSelection: computerSelection,
-                playerSelection: playerSelection,
+        function getUltimateGameResult(computerScore, playerScore) {
+            if(playerScore == 3) {
+                displayBox.innerHTML += "Congratulations! You've outsmarted the computer with the finesse of a ninja cat wearing a tuxedo – pure elegance, unmatched wit, and a sprinkle of stardust. You are the crowned ruler of this digital realm!<br>~~~<br>";
+                resetScores();
+                return "Player is the grand winner";
+            } else if(computerScore == 3) {
+                displayBox.innerHTML += "Alas! The computer triumphs, leaving you in the dust of its silicon superiority. In the realm of algorithms and logic, you stand defeated, a mere mortal in the shadow of the mighty machine. Fear not, for in the binary ballet, today the computer leads, and you? Well, you've earned the title of 'Binary Bumbler'.<br>~~~<br>";
+                resetScores();
+                return "Computer is the grand winner";
             }
         }
-
-        container.addEventListener('click', playRound);
-        
-        // function getUltimateGameResult(computerWins, playerWins) {
-        //             if(playerWins > computerWins) {
-        //                 console.log("Congratulations! You've outsmarted the computer with the finesse of a ninja cat wearing a tuxedo – pure elegance, unmatched wit, and a sprinkle of stardust. You are the crowned ruler of this digital realm!");
-        //                 return "Player is the grand winner";
-
-        //             } else if(computerWins > playerWins) {
-        //                 console.log("Alas! The computer triumphs, leaving you in the dust of its silicon superiority. In the realm of algorithms and logic, you stand defeated, a mere mortal in the shadow of the mighty machine. Fear not, for in the binary ballet, today the computer leads, and you? Well, you've earned the title of 'Binary Bumbler'.");
-        //                 return "Computer is the grand winner";
-        //             }
-        //         }
-        
-        // function playGame() {
-        //     let computerWins = 0;
-        //     let playerWins = 0;
-        //     let userConfirmed = confirm("Would you like to play a game of Rock-Paper-Scissors?");
-        //     if(userConfirmed) {
-        //         while (computerWins + playerWins < 3) {
-        //             const playRoundResult = playRound();
-        //             const computerSelection = playRoundResult.computerSelection;
-        //             const playerSelection = playRoundResult.playerSelection;
-        //             const resultMessage = playRoundResult.resultMessage;
-
-        //             if(resultMessage === "It's a tie!") {
-        //                 console.log(`Computer chose ${computerSelection}, you chose ${playerSelection}… ${resultMessage} It won't count in the results.`);
-        //             } else if(resultMessage === "Computer wins!") {
-        //                 computerWins = computerWins + 1;
-        //                 console.log(`Computer chose ${computerSelection}, you chose ${playerSelection}… ${resultMessage} Don't lose hope!`);
-        //             } else {
-        //                 playerWins = playerWins + 1;
-        //                 console.log(`Computer chose ${computerSelection}, you chose ${playerSelection}… ${resultMessage} What a game!`);
-        //             }
-
-        //         }
-                
-        //         console.log(getUltimateGameResult(computerWins, playerWins));
-        //     }    
-        // }
-        // playGame();
         
 
 
